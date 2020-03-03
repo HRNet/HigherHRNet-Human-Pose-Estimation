@@ -41,7 +41,7 @@ class CrowdPoseDataset(Dataset):
     def __init__(self, root, dataset, data_format, transform=None,
                  target_transform=None):
         from crowdposetools.coco import COCO
-        self.name = 'CrowdPose'
+        self.name = 'CROWDPOSE'
         self.root = root
         self.dataset = dataset
         self.data_format = data_format
