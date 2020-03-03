@@ -196,7 +196,7 @@ def main():
         if i % cfg.PRINT_FREQ == 0:
             prefix = '{}_{}'.format(os.path.join(final_output_dir, 'result_valid'), i)
             # logger.info('=> write {}'.format(prefix))
-            save_valid_image(image, final_results, '{}.jpg'.format(prefix))
+            save_valid_image(image, final_results, '{}.jpg'.format(prefix), dataset=test_dataset.name)
             # save_debug_images(cfg, image_resized, None, None, outputs, prefix)
 
         all_preds.append(final_results)

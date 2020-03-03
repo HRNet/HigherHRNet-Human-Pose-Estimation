@@ -1,8 +1,7 @@
 # ------------------------------------------------------------------------------
 # Copyright (c) Microsoft
 # Licensed under the MIT License.
-# Written by Bin Xiao (leoxiaobin@gmail.com)
-# Modified by Bowen Cheng (bcheng9@illinois.edu)
+# Written by Bowen Cheng (bcheng9@illinois.edu) and Bin Xiao (leoxiaobin@gmail.com)
 # ------------------------------------------------------------------------------
 
 from __future__ import absolute_import
@@ -20,14 +19,14 @@ import json_tricks as json
 import numpy as np
 from torch.utils.data import Dataset
 
-from pycocotools.cocoeval import COCOeval
+from crowdposetools.cocoeval import COCOeval
 from utils import zipreader
 
 logger = logging.getLogger(__name__)
 
 
-class CocoDataset(Dataset):
-    """`MS Coco Detection <http://mscoco.org/dataset/#detections-challenge2016>`_ Dataset.
+class CrowdPoseDataset(Dataset):
+    """`CrowdPose`_ Dataset.
 
     Args:
         root (string): Root directory where dataset is located to.
@@ -41,8 +40,8 @@ class CocoDataset(Dataset):
 
     def __init__(self, root, dataset, data_format, transform=None,
                  target_transform=None):
-        from pycocotools.coco import COCO
-        self.name = 'COCO'
+        from crowdposetools.coco import COCO
+        self.name = 'CrowdPose'
         self.root = root
         self.dataset = dataset
         self.data_format = data_format
@@ -66,32 +65,21 @@ class CocoDataset(Dataset):
         )
 
     def _get_anno_file_name(self):
-        # example: root/annotations/person_keypoints_tran2017.json
-        # image_info_test-dev2017.json
-        if 'test' in self.dataset:
-            return os.path.join(
-                self.root,
-                'annotations',
-                'image_info_{}.json'.format(
-                    self.dataset
-                )
+        # example: root/json/crowdpose_{train,val,test}.json
+        return os.path.join(
+            self.root,
+            'json',
+            'crowdpose_{}.json'.format(
+                self.dataset
             )
-        else:
-            return os.path.join(
-                self.root,
-                'annotations',
-                'person_keypoints_{}.json'.format(
-                    self.dataset
-                )
-            )
+        )
 
     def _get_image_path(self, file_name):
         images_dir = os.path.join(self.root, 'images')
-        dataset = 'test2017' if 'test' in self.dataset else self.dataset
         if self.data_format == 'zip':
-            return os.path.join(images_dir, dataset) + '.zip@' + file_name
+            return images_dir + '.zip@' + file_name
         else:
-            return os.path.join(images_dir, dataset, file_name)
+            return os.path.join(images_dir, file_name)
 
     def __getitem__(self, index):
         """
@@ -186,12 +174,12 @@ class CocoDataset(Dataset):
                 if cfg.DATASET.WITH_CENTER and not cfg.TEST.IGNORE_CENTER:
                     kpt = kpt[:-1]
 
-                kpts[int(file_name[-16:-4])].append(
+                kpts[int(file_name.split('.')[0])].append(
                     {
                         'keypoints': kpt[:, 0:3],
                         'score': scores[idx][idx_kpt],
                         'tags': kpt[:, 3],
-                        'image': int(file_name[-16:-4]),
+                        'image': int(file_name.split('.')[0]),
                         'area': area
                     }
                 )
@@ -299,7 +287,7 @@ class CocoDataset(Dataset):
         coco_eval.evaluate()
         coco_eval.accumulate()
         coco_eval.summarize()
-        stats_names = ['AP', 'Ap .5', 'AP .75', 'AP (M)', 'AP (L)', 'AR', 'AR .5', 'AR .75', 'AR (M)', 'AR (L)']
+        stats_names = ['AP', 'Ap .5', 'AP .75', 'AR', 'AR .5', 'AR .75', 'AP (easy)', 'AP (medium)', 'AP (hard)']
 
         info_str = []
         for ind, name in enumerate(stats_names):

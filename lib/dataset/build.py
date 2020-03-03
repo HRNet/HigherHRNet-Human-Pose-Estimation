@@ -13,6 +13,8 @@ import torch.utils.data
 
 from .COCODataset import CocoDataset as coco
 from .COCOKeypoints import CocoKeypoints as coco_kpt
+from .CrowdPoseDataset import CrowdPoseDataset as crowd_pose
+from .CrowdPoseKeypoints import CrowdPoseKeypoints as crowd_pose_kpt
 from .transforms import build_transforms
 from .target_generators import HeatmapGenerator
 from .target_generators import ScaleAwareHeatmapGenerator
@@ -88,7 +90,7 @@ def make_dataloader(cfg, is_train=True, distributed=False):
 
 def make_test_dataloader(cfg):
     transforms = None
-    dataset = coco(
+    dataset = eval(cfg.DATASET.DATASET_TEST)(
         cfg.DATASET.ROOT,
         cfg.DATASET.TEST,
         cfg.DATASET.DATA_FORMAT,

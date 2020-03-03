@@ -70,7 +70,8 @@ The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. 
    python3 setup.py install --user
    ```
    Note that instructions like # COCOAPI=/path/to/install/cocoapi indicate that you should pick a path where you'd like to have the software cloned and then set an environment variable (COCOAPI in this case) accordingly.
-5. Init output(training model output directory) and log(tensorboard log directory) directory:
+5. Install [CrowdPoseAPI](https://github.com/Jeff-sjtu/CrowdPose) exactly the same as COCOAPI.
+6. Init output(training model output directory) and log(tensorboard log directory) directory:
 
    ```
    mkdir output 
@@ -92,7 +93,7 @@ The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. 
    └── requirements.txt
    ```
 
-6. Download pretrained models from our model zoo([GoogleDrive](https://drive.google.com/open?id=1bdXVmYrSynPLSk5lptvgyQ8fhziobD50) or [OneDrive](https://1drv.ms/f/s!AhIXJn_J-blW4AwKRMklXVzndJT0))
+7. Download pretrained models from our model zoo([GoogleDrive](https://drive.google.com/open?id=1bdXVmYrSynPLSk5lptvgyQ8fhziobD50) or [OneDrive](https://1drv.ms/f/s!AhIXJn_J-blW4AwKRMklXVzndJT0))
    ```
    ${POSE_ROOT}
     `-- models
@@ -126,6 +127,26 @@ ${POSE_ROOT}
                 |-- 000000000285.jpg
                 |-- 000000000632.jpg
                 |-- ... 
+```
+
+**For CrowdPose data**, please download from [CrowdPose download](https://github.com/Jeff-sjtu/CrowdPose#dataset), Train/Val is needed for CrowdPose keypoints training and validation.
+Download and extract them under {POSE_ROOT}/data, and make them look like this:
+```
+${POSE_ROOT}
+|-- data
+`-- |-- crowd_pose
+    `-- |-- json
+        |   |-- crowdpose_train.json
+        |   |-- crowdpose_val.json
+        |   `-- crowdpose_test.json
+        `-- images
+            |-- 100000.jpg
+            |-- 100001.jpg
+            |-- 100002.jpg
+            |-- 100003.jpg
+            |-- 100004.jpg
+            |-- 100005.jpg
+            |-- ... 
 ```
 
 ### Training and Testing
