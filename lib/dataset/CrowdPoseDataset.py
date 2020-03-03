@@ -202,14 +202,12 @@ class CrowdPoseDataset(Dataset):
             oks_nmsed_kpts, res_file
         )
 
-        if 'test' not in self.dataset:
-            info_str = self._do_python_keypoint_eval(
-                res_file, res_folder
-            )
-            name_value = OrderedDict(info_str)
-            return name_value, name_value['AP']
-        else:
-            return {'Null': 0}, 0
+        # CrowdPose `test` set has annotation.
+        info_str = self._do_python_keypoint_eval(
+            res_file, res_folder
+        )
+        name_value = OrderedDict(info_str)
+        return name_value, name_value['AP']
 
     def _write_coco_keypoint_results(self, keypoints, res_file):
         data_pack = [

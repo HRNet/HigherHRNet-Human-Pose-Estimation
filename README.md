@@ -1,6 +1,7 @@
 # [Higher-Resolution Networks (HigherHRNet) for Human Pose Estimation](https://arxiv.org/abs/1908.10357)
 
 ## News
+* \[2020/03/03\] Support train/test on the CrowdPose dataset.
 * \[2019/11/23\] Code and models for [HigherHRNet](https://arxiv.org/abs/1908.10357) are now released!
 * \[2019/08/27\] HigherHRNet is now on [ArXiv](https://arxiv.org/abs/1908.10357). We will also release code and models, stay tuned!
 
@@ -204,6 +205,13 @@ python tools/dist_train.py \
 ```
 
 Our code for mixed-precision training is borrowed from [NVIDIA Apex API](https://github.com/NVIDIA/apex).
+
+#### Training on CrowdPose train dataset
+
+```
+python tools/dist_train.py \
+    --cfg experiments/crowd_pose/higher_hrnet/w32_512_adam_lr1e-3.yaml 
+```
 
 
 ### Other applications
