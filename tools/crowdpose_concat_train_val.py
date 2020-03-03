@@ -33,7 +33,7 @@ def main():
     val_dataset = json.load(open(os.path.join(args.data_dir, 'crowdpose_val.json')))
 
     trainval_dataset = {}
-    trainval_dataset['categories'] = trainval_dataset['train_dataset']
+    trainval_dataset['categories'] = trainval_dataset['categories']
     trainval_dataset['images'] = []
     trainval_dataset['images'].extend(train_dataset['images'])
     trainval_dataset['images'].extend(val_dataset['images'])
