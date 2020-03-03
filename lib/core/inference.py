@@ -106,8 +106,14 @@ def get_multi_stage_outputs(
         heatmaps.append(heatmaps_avg/num_heatmaps)
 
     if with_flip:
-        flip_index = FLIP_CONFIG['COCO_WITH_CENTER'] \
-            if cfg.DATASET.WITH_CENTER else FLIP_CONFIG['COCO']
+        if 'coco' in cfg.DATASET.DATASET:
+            dataset_name = 'COCO'
+        elif 'crowd_pose' in cfg.DATASET.DATASET:
+            dataset_name = 'CROWDPOSE'
+        else:
+            raise ValueError('Please implement flip_index for new dataset: %s.' % cfg.DATASET.DATASET)
+        flip_index = FLIP_CONFIG[dataset_name + '_WITH_CENTER'] \
+            if cfg.DATASET.WITH_CENTER else FLIP_CONFIG[dataset_name]
 
         heatmaps_avg = 0
         num_heatmaps = 0
