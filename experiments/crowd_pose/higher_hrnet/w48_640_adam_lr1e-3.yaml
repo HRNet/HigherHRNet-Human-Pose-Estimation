@@ -4,14 +4,17 @@ GPUS: (0,)
 LOG_DIR: log
 OUTPUT_DIR: output
 PRINT_FREQ: 100
+FP16:
+  ENABLED: True
+  DYNAMIC_LOSS_SCALE: True
 CUDNN:
   BENCHMARK: True
   DETERMINISTIC: False
   ENABLED: True
 DATASET:
   SIGMA: 2
-  DATASET: coco_kpt
-  DATASET_TEST: coco
+  DATASET: crowd_pose_kpt
+  DATASET_TEST: crowd_pose
   DATA_FORMAT: jpg
   FLIP: 0.5
   INPUT_SIZE: 512
@@ -22,10 +25,10 @@ DATASET:
   SCALE_TYPE: 'short'
   MAX_TRANSLATE: 40
   MIN_SCALE: 0.75
-  NUM_JOINTS: 17
-  ROOT: 'data/coco'
-  TEST: val2017
-  TRAIN: train2017
+  NUM_JOINTS: 14
+  ROOT: 'data/crowd_pose'
+  TEST: val
+  TRAIN: train
 DEBUG:
   DEBUG: True
   SAVE_BATCH_IMAGES_GT: False
@@ -54,8 +57,8 @@ MODEL:
       - 4
       - 4
       NUM_CHANNELS:
-      - 32
-      - 64
+      - 48
+      - 96
       FUSE_METHOD: SUM
     STAGE3:
       NUM_MODULES: 4
@@ -66,9 +69,9 @@ MODEL:
       - 4
       - 4
       NUM_CHANNELS:
-      - 32
-      - 64
-      - 128
+      - 48
+      - 96
+      - 192
       FUSE_METHOD: SUM
     STAGE4:
       NUM_MODULES: 3
@@ -80,15 +83,15 @@ MODEL:
       - 4
       - 4
       NUM_CHANNELS:
-      - 32
-      - 64
-      - 128
-      - 256
+      - 48
+      - 96
+      - 192
+      - 384
       FUSE_METHOD: SUM
     DECONV:
       NUM_DECONVS: 1
       NUM_CHANNELS:
-      - 32
+      - 48
       KERNEL_SIZE:
       - 4
       NUM_BASIC_BLOCKS: 4
@@ -97,7 +100,7 @@ MODEL:
   INIT_WEIGHTS: True
   NAME: pose_higher_hrnet
   NUM_JOINTS: 17
-  PRETRAINED: 'models/pytorch/imagenet/hrnet_w32-36af842e.pth'
+  PRETRAINED: 'models/pytorch/imagenet/hrnet_w48-8ef0771d.pth'
   TAG_PER_JOINT: True
 TEST:
   FLIP_TEST: True
@@ -116,7 +119,7 @@ TRAIN:
   END_EPOCH: 300
   GAMMA1: 0.99
   GAMMA2: 0.0
-  IMAGES_PER_GPU: 12
+  IMAGES_PER_GPU: 10
   LR: 0.001
   LR_FACTOR: 0.1
   LR_STEP: [200, 260]

@@ -4,14 +4,17 @@ GPUS: (0,)
 LOG_DIR: log
 OUTPUT_DIR: output
 PRINT_FREQ: 100
+FP16:
+  ENABLED: True
+  DYNAMIC_LOSS_SCALE: True
 CUDNN:
   BENCHMARK: True
   DETERMINISTIC: False
   ENABLED: True
 DATASET:
   SIGMA: 2
-  DATASET: coco_kpt
-  DATASET_TEST: coco
+  DATASET: crowd_pose_kpt
+  DATASET_TEST: crowd_pose
   DATA_FORMAT: jpg
   FLIP: 0.5
   INPUT_SIZE: 512
@@ -22,10 +25,10 @@ DATASET:
   SCALE_TYPE: 'short'
   MAX_TRANSLATE: 40
   MIN_SCALE: 0.75
-  NUM_JOINTS: 17
-  ROOT: 'data/coco'
-  TEST: val2017
-  TRAIN: train2017
+  NUM_JOINTS: 14
+  ROOT: 'data/crowd_pose'
+  TEST: val
+  TRAIN: train
 DEBUG:
   DEBUG: True
   SAVE_BATCH_IMAGES_GT: False

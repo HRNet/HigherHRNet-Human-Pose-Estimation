@@ -14,6 +14,7 @@ CUDNN:
 DATASET:
   SIGMA: 2
   DATASET: coco_kpt
+  DATASET_TEST: coco
   DATA_FORMAT: jpg
   FLIP: 0.5
   INPUT_SIZE: 640

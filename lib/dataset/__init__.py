@@ -5,6 +5,7 @@
 # ------------------------------------------------------------------------------
 
 from .COCOKeypoints import CocoKeypoints as coco
+from .CrowdPoseKeypoints import CrowdPoseKeypoints as crowd_pose
 from .build import make_dataloader
 from .build import make_test_dataloader
 
@@ -27,11 +28,33 @@ coco_part_orders = [
     ('kne_r', 'ank_r')
 ]
 
+crowd_pose_part_labels = [
+    'left_shoulder', 'right_shoulder', 'left_elbow', 'right_elbow',
+    'left_wrist', 'right_wrist', 'left_hip', 'right_hip',
+    'left_knee', 'right_knee', 'left_ankle', 'right_ankle',
+    'head', 'neck'
+]
+crowd_pose_part_idx = {
+    b: a for a, b in enumerate(crowd_pose_part_labels)
+}
+crowd_pose_part_orders = [
+    ('head', 'neck'), ('neck', 'left_shoulder'), ('neck', 'right_shoulder'),
+    ('left_shoulder', 'right_shoulder'), ('left_shoulder', 'left_hip'),
+    ('right_shoulder', 'right_hip'), ('left_hip', 'right_hip'), ('left_shoulder', 'left_elbow'),
+    ('left_elbow', 'left_wrist'), ('right_shoulder', 'right_elbow'), ('right_elbow', 'right_wrist'),
+    ('left_hip', 'left_knee'), ('left_knee', 'left_ankle'), ('right_hip', 'right_knee'),
+    ('right_knee', 'right_ankle')
+]
+
 VIS_CONFIG = {
     'COCO': {
         'part_labels': coco_part_labels,
         'part_idx': coco_part_idx,
         'part_orders': coco_part_orders
+    },
+    'CrowdPose': {
+        'part_labels': crowd_pose_part_labels,
+        'part_idx': crowd_pose_part_idx,
+        'part_orders': crowd_pose_part_orders
     }
 }
-
