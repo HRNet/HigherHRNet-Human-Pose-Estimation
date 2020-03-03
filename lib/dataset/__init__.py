@@ -52,7 +52,7 @@ VIS_CONFIG = {
         'part_idx': coco_part_idx,
         'part_orders': coco_part_orders
     },
-    'CrowdPose': {
+    'CROWDPOSE': {
         'part_labels': crowd_pose_part_labels,
         'part_idx': crowd_pose_part_idx,
         'part_orders': crowd_pose_part_orders

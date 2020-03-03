@@ -271,11 +271,12 @@ def main_worker(
         )
 
     for epoch in range(begin_epoch, cfg.TRAIN.END_EPOCH):
-        lr_scheduler.step()
-
         # train one epoch
         do_train(cfg, model, train_loader, loss_factory, optimizer, epoch,
                  final_output_dir, tb_log_dir, writer_dict, fp16=cfg.FP16.ENABLED)
+
+        # In PyTorch 1.1.0 and later, you should call `lr_scheduler.step()` after `optimizer.step()`.
+        lr_scheduler.step()
 
         perf_indicator = epoch
         if perf_indicator >= best_perf:

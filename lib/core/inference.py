@@ -32,8 +32,14 @@ def get_outputs(
         outputs[-1] = torch.flip(outputs[-1], [3])
         heatmaps.append(outputs[-1][:, :cfg.DATASET.NUM_JOINTS])
         tags.append(outputs[-1][:, cfg.DATASET.NUM_JOINTS:])
-        flip_index = FLIP_CONFIG['COCO_WITH_CENTER'] \
-            if cfg.DATASET.WITH_CENTER else FLIP_CONFIG['COCO']
+        if 'coco' in cfg.DATASET.DATASET:
+            dataset_name = 'COCO'
+        elif 'crowd_pose' in cfg.DATASET.DATASET:
+            dataset_name = 'CROWDPOSE'
+        else:
+            raise ValueError('Please implement flip_index for new dataset: %s.' % cfg.DATASET.DATASET)
+        flip_index = FLIP_CONFIG[dataset_name + '_WITH_CENTER'] \
+            if cfg.DATASET.WITH_CENTER else FLIP_CONFIG[dataset_name]
         heatmaps[-1] = heatmaps[-1][:, flip_index, :, :]
         if cfg.MODEL.TAG_PER_JOINT:
             tags[-1] = tags[-1][:, flip_index, :, :]
