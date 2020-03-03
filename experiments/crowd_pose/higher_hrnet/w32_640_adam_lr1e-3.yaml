@@ -99,7 +99,7 @@ MODEL:
       - True
   INIT_WEIGHTS: True
   NAME: pose_higher_hrnet
-  NUM_JOINTS: 17
+  NUM_JOINTS: 14
   PRETRAINED: 'models/pytorch/imagenet/hrnet_w32-36af842e.pth'
   TAG_PER_JOINT: True
 TEST:
