@@ -24,8 +24,8 @@ DATASET:
   MIN_SCALE: 0.75
   NUM_JOINTS: 14
   ROOT: 'data/crowd_pose'
-  TEST: val
-  TRAIN: train
+  TEST: test
+  TRAIN: trainval
 DEBUG:
   DEBUG: True
   SAVE_BATCH_IMAGES_GT: False

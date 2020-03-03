@@ -4,9 +4,6 @@ GPUS: (0,)
 LOG_DIR: log
 OUTPUT_DIR: output
 PRINT_FREQ: 100
-FP16:
-  ENABLED: True
-  DYNAMIC_LOSS_SCALE: True
 CUDNN:
   BENCHMARK: True
   DETERMINISTIC: False
@@ -47,7 +44,18 @@ LOSS:
 MODEL:
   EXTRA:
     FINAL_CONV_KERNEL: 1
-    PRETRAINED_LAYERS: ['*']
+    PRETRAINED_LAYERS:
+      - 'conv1'
+      - 'bn1'
+      - 'conv2'
+      - 'bn2'
+      - 'layer1'
+      - 'transition1'
+      - 'stage2'
+      - 'transition2'
+      - 'stage3'
+      - 'transition3'
+      - 'stage4'
     STEM_INPLANES: 64
     STAGE2:
       NUM_MODULES: 1
@@ -100,7 +108,7 @@ MODEL:
   INIT_WEIGHTS: True
   NAME: pose_higher_hrnet
   NUM_JOINTS: 14
-  PRETRAINED: 'models/pytorch/imagenet/hrnet_w32-36af842e.pth'
+  PRETRAINED: 'models/pytorch/pose_coco/pose_higher_hrnet_w32_512.pth'
   TAG_PER_JOINT: True
 TEST:
   FLIP_TEST: True
