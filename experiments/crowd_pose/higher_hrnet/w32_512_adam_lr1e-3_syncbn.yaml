@@ -1,0 +1,130 @@
+AUTO_RESUME: True
+DATA_DIR: ''
+GPUS: (0,)
+LOG_DIR: log
+OUTPUT_DIR: output
+PRINT_FREQ: 100
+CUDNN:
+  BENCHMARK: True
+  DETERMINISTIC: False
+  ENABLED: True
+DATASET:
+  SIGMA: 2
+  DATASET: crowd_pose_kpt
+  DATASET_TEST: crowd_pose
+  DATA_FORMAT: jpg
+  FLIP: 0.5
+  INPUT_SIZE: 512
+  OUTPUT_SIZE: [128, 256]
+  MAX_NUM_PEOPLE: 30
+  MAX_ROTATION: 30
+  MAX_SCALE: 1.5
+  SCALE_TYPE: 'short'
+  MAX_TRANSLATE: 40
+  MIN_SCALE: 0.75
+  NUM_JOINTS: 14
+  ROOT: 'data/crowd_pose'
+  TEST: test
+  TRAIN: trainval
+DEBUG:
+  DEBUG: True
+  SAVE_BATCH_IMAGES_GT: False
+  SAVE_BATCH_IMAGES_PRED: False
+  SAVE_HEATMAPS_GT: True
+  SAVE_HEATMAPS_PRED: True
+  SAVE_TAGMAPS_PRED: True
+LOSS:
+  NUM_STAGES: 2
+  AE_LOSS_TYPE: exp
+  WITH_AE_LOSS: [True, False]
+  PUSH_LOSS_FACTOR: [0.001, 0.001]
+  PULL_LOSS_FACTOR: [0.001, 0.001]
+  WITH_HEATMAPS_LOSS: [True, True]
+  HEATMAPS_LOSS_FACTOR: [1.0, 1.0]
+MODEL:
+  EXTRA:
+    FINAL_CONV_KERNEL: 1
+    PRETRAINED_LAYERS: ['*']
+    STEM_INPLANES: 64
+    STAGE2:
+      NUM_MODULES: 1
+      NUM_BRANCHES: 2
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      FUSE_METHOD: SUM
+    STAGE3:
+      NUM_MODULES: 4
+      NUM_BRANCHES: 3
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      FUSE_METHOD: SUM
+    STAGE4:
+      NUM_MODULES: 3
+      NUM_BRANCHES: 4
+      BLOCK: BASIC
+      NUM_BLOCKS:
+      - 4
+      - 4
+      - 4
+      - 4
+      NUM_CHANNELS:
+      - 32
+      - 64
+      - 128
+      - 256
+      FUSE_METHOD: SUM
+    DECONV:
+      NUM_DECONVS: 1
+      NUM_CHANNELS:
+      - 32
+      KERNEL_SIZE:
+      - 4
+      NUM_BASIC_BLOCKS: 4
+      CAT_OUTPUT:
+      - True
+  INIT_WEIGHTS: True
+  NAME: pose_higher_hrnet
+  NUM_JOINTS: 14
+  PRETRAINED: 'models/pytorch/imagenet/hrnet_w32-36af842e.pth'
+  TAG_PER_JOINT: True
+  SYNC_BN: True
+TEST:
+  FLIP_TEST: True
+  IMAGES_PER_GPU: 1
+  MODEL_FILE: '' 
+  SCALE_FACTOR: [1]
+  DETECTION_THRESHOLD: 0.1
+  WITH_HEATMAPS: (True, True)
+  WITH_AE: (True, False)
+  PROJECT2IMAGE: True
+  NMS_KERNEL: 5
+  NMS_PADDING: 2
+TRAIN:
+  BEGIN_EPOCH: 0
+  CHECKPOINT: ''
+  END_EPOCH: 300
+  GAMMA1: 0.99
+  GAMMA2: 0.0
+  IMAGES_PER_GPU: 12
+  LR: 0.001
+  LR_FACTOR: 0.1
+  LR_STEP: [200, 260]
+  MOMENTUM: 0.9
+  NESTEROV: False
+  OPTIMIZER: adam
+  RESUME: False
+  SHUFFLE: True
+  WD: 0.0001
+WORKERS: 4
