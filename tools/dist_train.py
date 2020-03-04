@@ -19,6 +19,7 @@ import torch
 import torch.backends.cudnn as cudnn
 import torch.distributed as dist
 import torch.multiprocessing as mp
+import torch.nn as nn
 import torch.nn.parallel
 import torch.optim
 import torch.utils.data
@@ -198,7 +199,12 @@ def main_worker(
     if cfg.FP16.ENABLED:
         model = network_to_half(model)
 
+    if cfg.MODEL.SYNC_BN and not args.distributed:
+        print('Warning: Sync BatchNorm is only supported in distributed training.')
+
     if args.distributed:
+        if cfg.MODEL.SYNC_BN:
+            model = nn.SyncBatchNorm.convert_sync_batchnorm(model)
         # For multiprocessing distributed, DistributedDataParallel constructor
         # should always set the single device scope, otherwise,
         # DistributedDataParallel will use all available devices.
