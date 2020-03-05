@@ -286,10 +286,11 @@ class CrowdPoseDataset(Dataset):
         coco_eval.accumulate()
         coco_eval.summarize()
         stats_names = ['AP', 'Ap .5', 'AP .75', 'AR', 'AR .5', 'AR .75', 'AP (easy)', 'AP (medium)', 'AP (hard)']
+        stats_index = [0, 1, 2, 5, 6, 7, 8, 9, 10]
 
         info_str = []
         for ind, name in enumerate(stats_names):
-            info_str.append((name, coco_eval.stats[ind]))
+            info_str.append((name, coco_eval.stats[stats_index[ind]]))
             # info_str.append(coco_eval.stats[ind])
 
         return info_str
