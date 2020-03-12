@@ -126,17 +126,6 @@ class CrowdPoseKeypoints(CrowdPoseDataset):
 
         m = np.zeros((img_info['height'], img_info['width']))
 
-        # for obj in anno:
-        #     if obj['iscrowd']:
-        #         rle = crowdposetools.mask.frPyObjects(
-        #             obj['segmentation'], img_info['height'], img_info['width'])
-        #         m += crowdposetools.mask.decode(rle)
-        #     elif obj['num_keypoints'] == 0:
-        #         rles = crowdposetools.mask.frPyObjects(
-        #             obj['segmentation'], img_info['height'], img_info['width'])
-        #         for rle in rles:
-        #             m += crowdposetools.mask.decode(rle)
-
         return m < 0.5
 
     def _init_check(self, heatmap_generator, joints_generator):
