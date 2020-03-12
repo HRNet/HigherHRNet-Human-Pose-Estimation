@@ -1,13 +1,14 @@
-# [Higher-Resolution Networks (HigherHRNet) for Human Pose Estimation](https://arxiv.org/abs/1908.10357)
+# [HigherHRNet: Scale-Aware Representation Learning for Bottom-Up Human Pose Estimation (CVPR2020)](https://arxiv.org/abs/1908.10357)
 
 ## News
-* \[2020/03/03\] Support train/test on the CrowdPose dataset.
+* \[2020/03/12\] Support train/test on the CrowdPose dataset.
+* \[2020/02/24\] HigherHRNet is accepted to CVPR2020!
 * \[2019/11/23\] Code and models for [HigherHRNet](https://arxiv.org/abs/1908.10357) are now released!
 * \[2019/08/27\] HigherHRNet is now on [ArXiv](https://arxiv.org/abs/1908.10357). We will also release code and models, stay tuned!
 
 ## Introduction
 This is the official code of [Bottom-up Higher-Resolution Networks for Multi-Person Pose Estimation](https://arxiv.org/abs/1908.10357).  
-Bottom-up multi-person pose estimation methods have difficulties in predicting the correct pose for small persons due to challenges in scale variation. In this paper, we present a Higher-Resolution Network (HigherHRNet) to learn high-resolution feature pyramids. Equipped with mutli-resolution supervision for training and multi-resolution aggregation  for inference, the proposed approach is able to solve the scale variation challenge in *bottom-up multi-person* pose estimation and localize the keypoints, especially for small person, more precisely. The feature pyramid in HigherHRNet consists of the feature map output from HRNet and the upsampled higher-resolution one through a transposed convolution. HigherHRNet outperforms the previous best bottom-up method by 2.5% AP for medium person on COCO test-dev, showing its effectiveness in handling scale variation. Furthermore, HigherHRNet achieves a state-of-the-art result of 70.5% AP on COCO test-dev without using refinement or other post-processing techniques, surpassing all existing bottom-up methods.
+Bottom-up human pose estimation methods have difficulties in predicting the correct pose for small persons due to challenges in scale variation. In this paper, we present **HigherHRNet**: a novel bottom-up human pose estimation method for learning scale-aware representations using high-resolution feature pyramids. Equipped with multi-resolution supervision for training and multi-resolution aggregation  for inference, the proposed approach is able to solve the scale variation challenge in *bottom-up multi-person* pose estimation and localize keypoints more precisely, especially for small person. The feature pyramid in HigherHRNet consists of feature map outputs from HRNet and upsampled higher-resolution outputs through a transposed convolution. HigherHRNet outperforms the previous best bottom-up method by 2.5% AP for medium person on COCO test-dev, showing its effectiveness in handling scale variation. Furthermore, HigherHRNet achieves new state-of-the-art result on COCO test-dev (70.5% AP) without using refinement or other post-processing techniques, surpassing all existing bottom-up methods. HigherHRNet even surpasses all top-down methods on CrowdPose test (67.6% AP), suggesting its robustness in crowded scene. 
 
 ![Illustrating the architecture of the proposed Higher-HRNet](/figures/arch_v2.png)
 
@@ -45,7 +46,17 @@ Bottom-up multi-person pose estimation methods have difficulties in predicting t
 | PersonLab          | ResNet-152  | 1401    |  68.7M  | 405.5  | 68.7  | 89.0  |  75.4  |  64.1  |  75.5  | 
 | **HigherHRNet**    | HRNet-w48  | 640      |  63.8M  | 154.3  | **70.5**  | **89.3**  |  **77.2**  |  **66.6**  |  **75.8**  | 
 
-*Note: \* indicates using refinement.*
+### Results on CrowdPose test
+| Method             |    AP | Ap .5 | AP .75 | AP (E) | AP (M) | AP (H) |
+|--------------------|-------|-------|--------|--------|--------|--------|
+| Mask-RCNN          | 57.2  | 83.5  | 60.3   | 69.4   | 57.9   | 45.8   |
+| AlphaPose          | 61.0  | 81.3  | 66.0   | 71.2   | 61.4   | 51.1   |
+| SPPE               | 66.0. | 84.2 | 71.5 | 75.5 | 66.3 | 57.4 |
+| OpenPose           | - | - | - | 62.7 | 48.7 | 32.3 |
+| **HigherHRNet**    | 65.9 | 86.4 | 70.6 | 73.3 | 66.5 | 57.9 |
+| **HigherHRNet+**   | **67.6** | **87.4** | **72.6** | **75.8** | **68.1** | **58.9** |
+
+*Note: + indicates using multi-scale test.*
 
 ## Environment
 The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. The code is developed and tested using 4 NVIDIA P100 GPU cards. Other platforms or GPU cards are not fully tested.
@@ -208,7 +219,7 @@ python tools/dist_train.py \
 
 Our code for mixed-precision training is borrowed from [NVIDIA Apex API](https://github.com/NVIDIA/apex).
 
-#### Training on CrowdPose train dataset
+#### Training on CrowdPose trainval dataset
 
 ```
 python tools/dist_train.py \
@@ -222,12 +233,11 @@ Many other dense prediction tasks, such as segmentation, face alignment and obje
 ## Citation
 If you find this work or code is helpful in your research, please cite:
 ````
-@article{cheng2019bottom,
-  title={Bottom-up Higher-Resolution Networks for Multi-Person Pose Estimation},
+@inproceedings{cheng2020bottom,
+  title={HigherHRNet: Scale-Aware Representation Learning for Bottom-Up Human Pose Estimation},
   author={Bowen Cheng and Bin Xiao and Jingdong Wang and Honghui Shi and Thomas S. Huang and Lei Zhang},
-  journal   = {CoRR},
-  volume    = {abs/1908.10357},
-  year={2019}
+  booktitle={CVPR},
+  year={2020}
 }
 
 @inproceedings{SunXLW19,
