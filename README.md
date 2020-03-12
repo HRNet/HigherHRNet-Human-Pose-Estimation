@@ -63,9 +63,7 @@ The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. 
 
 ## Quick start
 ### Installation
-1. Install pytorch >= v1.0.0 following [official instruction](https://pytorch.org/).  
-   - **Note that if you use pytorch's version < v1.0.0, you should following the instruction at <https://github.com/Microsoft/human-pose-estimation.pytorch> to disable cudnn's implementations of BatchNorm layer. We encourage you to use higher pytorch's version(>=v1.0.0)**
-   - **Install pytorch >= v1.1.0 if you want to use the official SyncBN**
+1. Install pytorch >= v1.1.0 following [official instruction](https://pytorch.org/).  
    - **Tested with pytorch v1.4.0**
 2. Clone this repo, and we'll call the directory that you cloned as ${POSE_ROOT}.
 3. Install dependencies:
