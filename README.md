@@ -220,6 +220,15 @@ python tools/dist_train.py \
     FP16.ENABLED True FP16.DYNAMIC_LOSS_SCALE True
 ```
 
+#### Synchronized BatchNorm training
+If you have limited GPU memory, please try to reduce batch size and use SyncBN to train our Higher-HRNet by using the following command:
+```
+python tools/dist_train.py \
+    --cfg experiments/coco/higher_hrnet/w32_512_adam_lr1e-3.yaml \
+    FP16.ENABLED True FP16.DYNAMIC_LOSS_SCALE True \
+    MODEL.SYNC_BN True
+```
+
 Our code for mixed-precision training is borrowed from [NVIDIA Apex API](https://github.com/NVIDIA/apex).
 
 #### Training on CrowdPose trainval dataset
