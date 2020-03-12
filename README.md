@@ -63,8 +63,10 @@ The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. 
 
 ## Quick start
 ### Installation
-1. Install pytorch >= v1.0.0 following [official instruction](https://pytorch.org/).
-   **Note that if you use pytorch's version < v1.0.0, you should following the instruction at <https://github.com/Microsoft/human-pose-estimation.pytorch> to disable cudnn's implementations of BatchNorm layer. We encourage you to use higher pytorch's version(>=v1.0.0)**
+1. Install pytorch >= v1.0.0 following [official instruction](https://pytorch.org/).  
+   - **Note that if you use pytorch's version < v1.0.0, you should following the instruction at <https://github.com/Microsoft/human-pose-estimation.pytorch> to disable cudnn's implementations of BatchNorm layer. We encourage you to use higher pytorch's version(>=v1.0.0)**
+   - **Install pytorch >= v1.1.0 if you want to use the official SyncBN**
+   - **Tested with pytorch v1.4.0**
 2. Clone this repo, and we'll call the directory that you cloned as ${POSE_ROOT}.
 3. Install dependencies:
    ```
@@ -82,7 +84,8 @@ The code is developed using python 3.6 on Ubuntu 16.04. NVIDIA GPUs are needed. 
    python3 setup.py install --user
    ```
    Note that instructions like # COCOAPI=/path/to/install/cocoapi indicate that you should pick a path where you'd like to have the software cloned and then set an environment variable (COCOAPI in this case) accordingly.
-5. Install [CrowdPoseAPI](https://github.com/Jeff-sjtu/CrowdPose) exactly the same as COCOAPI.
+5. Install [CrowdPoseAPI](https://github.com/Jeff-sjtu/CrowdPose) exactly the same as COCOAPI.  
+   - **There is a bug in the CrowdPoseAPI, please reverse https://github.com/Jeff-sjtu/CrowdPose/commit/785e70d269a554b2ba29daf137354103221f479e**
 6. Init output(training model output directory) and log(tensorboard log directory) directory:
 
    ```
