@@ -209,7 +209,7 @@ If you find this work or code is helpful in your research, please cite:
 @article{wang2019deep,
   title={Deep High-Resolution Representation Learning for Visual Recognition},
   author={Wang, Jingdong and Sun, Ke and Cheng, Tianheng and Jiang, Borui and Deng, Chaorui and Zhao, Yang and Liu, Dong and Mu, Yadong and Tan, Mingkui and Wang, Xinggang and Liu, Wenyu and Xiao, Bin},
-  journal={arXiv preprint arXiv:1908.07919},
+  journal={TPAMI},
   year={2019}
 }
 ````
