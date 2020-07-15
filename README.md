@@ -241,6 +241,9 @@ python tools/dist_train.py \
 ### Other applications
 Many other dense prediction tasks, such as segmentation, face alignment and object detection, etc. have been benefited by HRNet. More information can be found at [Deep High-Resolution Representation Learning](https://jingdongwang2017.github.io/Projects/HRNet/).
 
+### Other implementations
+[mmpose](https://github.com/open-mmlab/mmpose)
+
 ## Citation
 If you find this work or code is helpful in your research, please cite:
 ````
