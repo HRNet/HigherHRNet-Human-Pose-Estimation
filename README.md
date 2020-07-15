@@ -1,6 +1,7 @@
 # [HigherHRNet: Scale-Aware Representation Learning for Bottom-Up Human Pose Estimation (CVPR 2020)](https://arxiv.org/abs/1908.10357)
 
 ## News
+* \[2020/07/05\] [A very nice blog](https://towardsdatascience.com/overview-of-human-pose-estimation-neural-networks-hrnet-higherhrnet-architectures-and-faq-1954b2f8b249) from Towards Data Science introducing HRNet and HigherHRNet for human pose estimation.
 * \[2020/03/12\] Support train/test on the CrowdPose dataset.
 * \[2020/02/24\] HigherHRNet is accepted to CVPR2020!
 * \[2019/11/23\] Code and models for [HigherHRNet](https://arxiv.org/abs/1908.10357) are now released!
