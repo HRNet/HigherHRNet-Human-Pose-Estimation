@@ -12,7 +12,7 @@ import logging
 
 import numpy as np
 
-import crowdposetools
+
 from .CrowdPoseDataset import CrowdPoseDataset
 from .target_generators import HeatmapGenerator
 
